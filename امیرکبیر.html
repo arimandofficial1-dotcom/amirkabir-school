@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدرسه امیرکبیر — پنل مدیریت پیشرفته</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- صفحه ورود -->
+<div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+  <div class="bg-white rounded-lg w-11/12 md:w-96 p-6 shadow-lg">
+    <h3 class="text-lg font-bold text-center">ورود به پنل</h3>
+    <form id="loginForm" class="mt-4 space-y-3">
+      <input required name="username" placeholder="نام کاربری" class="w-full p-3 border rounded" />
+      <input required type="password" name="password" placeholder="رمز عبور" class="w-full p-3 border rounded" />
+      <select name="role" class="w-full p-3 border rounded">
+        <option value="student">دانش‌آموز</option>
+        <option value="teacher">معلم</option>
+        <option value="admin">مدیر</option>
+      </select>
+      <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded">ورود</button>
+    </form>
+  </div>
+</div>
+
+<div id="siteContent" class="hidden">
+<header class="shadow-sm sticky top-0 bg-white z-40">
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-3">
+      <img src="https://placehold.co/48x48/0f172a/ffffff/png?text=A" alt="logo" class="w-12 h-12 rounded-full"/>
+      <h1 class="text-lg font-bold">مدرسه <span class="text-blue-600">امیرکبیر</span></h1>
+    </a>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="#dashboard">پنل</a>
+      <a href="#news">اخبار</a>
+      <a href="#gallery">گالری</a>
+      <a href="#about">درباره ما</a>
+      <a href="#calculator">ماشین حساب</a>
+      <a href="#admin">مدیریت</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div id="currentUserBadge" class="hidden bg-gray-100 px-3 py-1 rounded"></div>
+      <button id="logoutBtn" class="py-2 px-4 bg-red-500 text-white rounded-md hidden">خروج</button>
+    </div>
+  </div>
+</header>
+
+<section id="hero" class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center">
+  <h2 class="text-3xl font-extrabold">به مدرسه <span class="text-yellow-300">امیرکبیر</span> خوش آمدید</h2>
+  <p class="mt-4">سامانهٔ مدیریت مدرسه — همه امکانات تحت کنترل مدیر</p>
+</section>
+
+<section id="dashboard" class="p-6">
+  <h3 class="font-bold text-xl mb-4">پنل کاربری</h3>
+  <!-- کارنامه، حضور و غیاب، اطلاعیه‌ها، فایل‌ها، نمودار پیشرفت -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div>
+      <h4 class="font-semibold mb-2">کارنامه</h4>
+      <table class="w-full border border-gray-300 rounded">
+        <tr class="bg-gray-200"><th>درس</th><th>نمره</th></tr>
+        <tr><td>ریاضی</td><td>18</td></tr>
+        <tr><td>فیزیک</td><td>17</td></tr>
+        <tr><td>ادبیات</td><td>19</td></tr>
+      </table>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-2">نمودار پیشرفت</h4>
+      <canvas id="progressChart"></canvas>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <h4 class="font-semibold mb-2">حضور و غیاب</h4>
+    <table class="w-full border border-gray-300 rounded">
+      <tr class="bg-gray-200"><th>تاریخ</th><th>وضعیت</th></tr>
+      <tr><td>1404/06/01</td><td>حاضر</td></tr>
+      <tr><td>1404/06/02</td><td>غایب</td></tr>
+    </table>
+  </div>
+
+  <div class="mt-6">
+    <h4 class="font-semibold mb-2">بارگذاری فایل، عکس و ویدئو</h4>
+    <input type="file" multiple class="border p-2 rounded w-full" />
+  </div>
+</section>
+
+<section id="news" class="p-6 bg-white mt-6 rounded shadow">
+  <h3 class="font-bold text-xl mb-3">اخبار مدرسه</h3>
+  <ul id="newsList" class="list-disc list-inside">
+    <li>برگزاری مسابقه علمی بین مدارس</li>
+    <li>افتتاح کتابخانه جدید</li>
+  </ul>
+  <input id="newNews" placeholder="متن خبر" class="border p-2 w-full mt-2 rounded" />
+  <button onclick="addNews()" class="bg-green-600 text-white px-4 py-2 rounded mt-2">افزودن خبر</button>
+</section>
+
+<section id="gallery" class="p-6 mt-6 bg-white rounded shadow">
+  <h3 class="font-bold text-xl mb-3">گالری</h3>
+  <div id="galleryGrid" class="grid grid-cols-3 gap-2"></div>
+  <input type="file" id="galleryUpload" multiple class="border p-2 w-full mt-2 rounded" />
+  <button onclick="uploadGallery()" class="bg-green-600 text-white px-4 py-2 rounded mt-2">بارگذاری</button>
+</section>
+
+<section id="about" class="p-6 mt-6 bg-white rounded shadow">
+  <h3 class="font-bold text-xl mb-3">درباره ما</h3>
+  <p>گروه <strong>آری ماند</strong></p>
+  <p>طراحان: علیرضا آزادیان، محمد سعیدی، علیرضا مولایی فر، محمدطاها کریمی بیرانوند</p>
+</section>
+
+<section id="calculator" class="p-6 mt-6 bg-white rounded shadow">
+  <h3 class="font-bold text-xl mb-3">ماشین حساب آنلاین</h3>
+  <input id="calcInput" type="text" class="border p-2 w-full mb-2 rounded" placeholder="مثال: 5+2*3" />
+  <button onclick="calculate()" class="bg-blue-600 text-white px-4 py-2 rounded">محاسبه</button>
+  <p id="calcResult" class="mt-2 font-bold"></p>
+</section>
+
+<section id="admin" class="p-6 mt-6 bg-white rounded shadow">
+  <h3 class="font-bold text-xl mb-3">مدیریت پیشرفته</h3>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="border p-4 rounded">
+      <h4 class="font-semibold mb-2">مدیریت کاربران</h4>
+      <ul id="userList" class="list-disc list-inside mb-2">
+        <li>student1</li>
+        <li>teacher1</li>
+        <li>admin</li>
+      </ul>
+      <input id="newUser" placeholder="نام کاربری جدید" class="border p-2 w-full rounded mb-2" />
+      <select id="newUserRole" class="border p-2 w-full mb-2 rounded">
+        <option value="student">دانش‌آموز</option>
+        <option value="teacher">معلم</option>
+        <option value="admin">مدیر</option>
+      </select>
+      <button onclick="addUser()" class="bg-green-600 text-white px-4 py-2 rounded mb-2">افزودن کاربر</button>
+      <button onclick="clearUsers()" class="bg-red-600 text-white px-4 py-2 rounded">حذف همه کاربران</button>
+    </div>
+    <div class="border p-4 rounded">
+      <h4 class="font-semibold mb-2">مدیریت اطلاعیه‌ها و اخبار</h4>
+      <ul id="announcementList" class="list-disc list-inside mb-2"></ul>
+      <input id="newAnnouncement" placeholder="متن اطلاعیه" class="border p-2 w-full rounded mb-2" />
+      <button onclick="addAnnouncement()" class="bg-green-600 text-white px-4 py-2 rounded mb-2">افزودن اطلاعیه</button>
+      <button onclick="clearAnnouncements()" class="bg-red-600 text-white px-4 py-2 rounded">حذف همه اطلاعیه‌ها</button>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-slate-900 text-white py-6 text-center mt-6">
+  <p>© مدرسه امیرکبیر</p>
+</footer>
+
+<script>
+// ورود و خروج
+const loginModal = document.getElementById('loginModal');
+const siteContent = document.getElementById('siteContent');
+const loginForm = document.getElementById('loginForm');
+const logoutBtn = document.getElementById('logoutBtn');
+const currentUserBadge = document.getElementById('currentUserBadge');
+
+loginForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const formData = new FormData(loginForm);
+  const username = formData.get('username');
+  const role = formData.get('role');
+  currentUserBadge.innerHTML = `${username} (${role})`;
+  currentUserBadge.classList.remove('hidden');
+  loginModal.classList.add('hidden');
+  siteContent.classList.remove('hidden');
+  logoutBtn.classList.remove('hidden');
+});
+
+logoutBtn.addEventListener('click', ()=>{
+  loginModal.classList.remove('hidden');
+  siteContent.classList.add('hidden');
+  logoutBtn.classList.add('hidden');
+  currentUserBadge.classList.add('hidden');
+});
+
+// نمودار پیشرفت
+const ctx = document.getElementById('progressChart')?.getContext('2d');
+if(ctx){
+  new Chart(ctx, {
+    type: 'bar',
+    data: {labels: ['ریاضی','فیزیک','ادبیات','زیست'],datasets:[{label:'نمره',data:[18,17,19,16],backgroundColor:'rgba(59,130,246,0.7)'}]},
+    options: {scales:{y:{beginAtZero:true}}}
+  });
+}
+
+// ماشین حساب
+function calculate(){
+  const input = document.getElementById('calcInput').value;
+  try{ document.getElementById('calcResult').innerText = eval(input); }
+  catch(e){ document.getElementById('calcResult').innerText='خطا در محاسبه'; }
+}
+
+// مدیریت کاربران
+function addUser(){
+  const name = document.getElementById('newUser').value;
+  const role = document.getElementById('newUserRole').value;
+  if(name){
+    const li = document.createElement('li');
+    li.textContent = `${name} (${role})`;
+    document.getElementById('userList').appendChild(li);
+    document.getElementById('newUser').value='';
+  }
+}
+function clearUsers(){ document.getElementById('userList').innerHTML=''; }
+
+// مدیریت اطلاعیه‌ها و اخبار
+function addAnnouncement(){
+  const ann = document.getElementById('newAnnouncement').value;
+  if(ann){
+    const li=document.createElement('li');
+    li.textContent=ann;
+    document.getElementById('announcementList').appendChild(li);
+    document.getElementById('newAnnouncement').value='';
+  }
+}
+function clearAnnouncements(){ document.getElementById('announcementList').innerHTML=''; }
+
+// مدیریت اخبار در بخش news
+function addNews(){
+  const news = document.getElementById('newNews').value;
+  if(news){
+    const li=document.createElement('li');
+    li.textContent=news;
+    document.getElementById('newsList').appendChild(li);
+    document.getElementById('newNews').value='';
+  }
+}
+
+// گالری
+function uploadGallery(){
+  const files = document.getElementById('galleryUpload').files;
+  const grid = document.getElementById('galleryGrid');
+  Array.from(files).forEach(file => {
+    const url = URL.createObjectURL(file);
+    const img = document.createElement('img');
+    img.src = url;
+    img.className='w-full h-24 object-cover';
+    grid.appendChild(img);
+  });
+}
+</script>
+
+</body>
+</html>
