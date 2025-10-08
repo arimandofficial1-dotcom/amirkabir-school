@@ -1,0 +1,226 @@
+/* انتخاب فونت جذاب: وزیر متن */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;900&display=swap');
+
+:root {
+    /* متغیرهای رنگی لوکس */
+    --color-navy: #001f3f; /* سرمه‌ای تیره لوکس */
+    --color-gold: #FFC300; /* طلایی درخشان */
+    --color-text-dark: #333333;
+    --color-light-gray: #f7f7f7; /* پس زمینه روشن */
+    --font-family: 'Vazirmatn', sans-serif;
+}
+
+/* استایل‌های پایه و فونت */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: var(--font-family);
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    direction: rtl; 
+    text-align: right;
+    scroll-behavior: smooth;
+}
+
+/* --- کلاس‌های رنگی و عمومی --- */
+.section-padding { padding: 80px 0; }
+.text-navy { color: var(--color-navy) !important; }
+.bg-navy { background-color: var(--color-navy) !important; }
+.text-gold { color: var(--color-gold) !important; }
+.bg-light-gray { background-color: var(--color-light-gray) !important; }
+.border-top-gold { border-top: 5px solid var(--color-gold) !important; }
+.text-light-hover:hover { color: var(--color-gold) !important; transition: color 0.3s; }
+
+/* دکمه‌های طلایی پیشرفته (متحرک) */
+.btn-gold-fill {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    border: 2px solid var(--color-gold);
+    transition: all 0.4s ease;
+    font-weight: 700;
+}
+.btn-gold-fill:hover {
+    background-color: transparent;
+    color: var(--color-gold);
+    box-shadow: 0 8px 15px rgba(255, 195, 0, 0.4);
+    transform: translateY(-3px);
+}
+.btn-gold-outline {
+    background-color: transparent;
+    color: var(--color-gold);
+    border: 2px solid var(--color-gold);
+    transition: all 0.4s ease;
+}
+.btn-gold-outline:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+}
+.btn-secondary-outline {
+    background-color: transparent;
+    color: var(--color-navy);
+    border: 2px solid var(--color-navy);
+    transition: all 0.3s ease;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: 700;
+}
+.btn-secondary-outline:hover {
+    background-color: var(--color-navy);
+    color: var(--color-gold);
+    border-color: var(--color-navy);
+}
+
+/* --- هدر ثابت و لوکس --- */
+.main-header {
+    background-color: var(--color-navy);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.main-nav .nav-link {
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+}
+.main-nav .nav-link:hover {
+    color: var(--color-gold) !important;
+}
+
+/* --- Hero Section با جلوه Parallax (متحرک) --- */
+.hero {
+    background: linear-gradient(rgba(0, 31, 63, 0.85), rgba(0, 31, 63, 0.9)), url('hero-bg.jpg') no-repeat fixed center center/cover;
+    height: 85vh;
+}
+.hero h2 { color: var(--color-gold); }
+
+/* --- کارت‌های خدمات تخصصی (متحرک) --- */
+.service-card {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-bottom: 5px solid var(--color-gold);
+    transition: all 0.4s ease;
+}
+.service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* --- ماژول درباره ما (About Us) --- */
+.about-card {
+    transition: transform 0.4s ease;
+    border-radius: 10px;
+}
+.about-card:hover {
+    transform: translateY(-8px);
+}
+.creators-list li {
+    font-size: 1.1rem;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+.creators-list li:hover {
+    color: var(--color-gold);
+}
+
+
+/* --- ماژول نظرات (Reviews) --- */
+.reviews-slider { max-width: 800px; margin: 0 auto; }
+.review-item {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.5s ease;
+}
+
+/* --- ماژول پرسش و پاسخ (FAQ) --- */
+.border-gold-left { border-right: 5px solid var(--color-gold); }
+.accordion-item { border: none !important; border-radius: 8px !important; margin-bottom: 15px; }
+.accordion-button {
+    background-color: white !important;
+    color: var(--color-navy) !important;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+.accordion-button:not(.collapsed) {
+    background-color: var(--color-light-gray) !important;
+    color: var(--color-gold) !important;
+    border-bottom: 1px solid var(--color-gold) !important;
+}
+
+/* --- ماژول پاسخ‌های تخصصی (Answers) --- */
+.answer-card {
+    background-color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.answer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.question-title {
+    border-bottom: 2px solid var(--color-light-gray);
+    padding-bottom: 15px;
+}
+.answer-box {
+    border-radius: 8px;
+    border: 1px dashed var(--color-gold);
+}
+
+/* --- ماژول نوبت‌دهی آنلاین (Booking) --- */
+.booking-form-wrapper {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-gold);
+    border-radius: 15px;
+}
+.booking-form .form-control,
+.booking-form .form-select {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--color-navy);
+    border: 1px solid var(--color-gold);
+    border-radius: 5px;
+}
+.booking-form .form-control:focus,
+.booking-form .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.5);
+    border-color: var(--color-gold);
+}
+.booking-form .form-label {
+    font-weight: 500;
+}
+
+
+/* --- کادرهای تیم حقوقی (متحرک) --- */
+.team-member { border: none; overflow: hidden; border-radius: 10px; }
+.team-member img { height: 350px; object-fit: cover; filter: grayscale(20%); transition: filter 0.5s ease; }
+.team-member:hover img { filter: grayscale(0%); }
+
+
+/* --- فرم تماس و نقشه --- */
+.map-container {
+    height: 450px;
+    overflow: hidden;
+    border: 3px solid var(--color-gold);
+    border-radius: 8px;
+}
+.contact-form { border: 1px solid var(--color-gold); }
+
+/* --- Footer لوکس --- */
+.main-footer { background-color: var(--color-navy); }
+.border-gold-light { border-color: rgba(255, 195, 0, 0.3) !important; }
+
+
+/* --- انیمیشن‌های ورود (متحرک) --- */
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+.animated-fade-in-down { animation: fadeInDown 1s ease-out; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.animated-fade-in-up { animation: fadeInUp 1s ease-out 0.5s forwards; opacity: 0; }
+
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.animated-zoom-in { animation: zoomIn 1s ease-out 1s forwards; opacity: 0; }
+
+@keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+.animated-slide-up { animation: slideUp 1s ease-out forwards; opacity: 0; }
+
+@keyframes rotateIn { from { opacity: 0; transform: rotateY(90deg); } to { opacity: 1; transform: rotateY(0deg); } }
+.animated-rotate-in { animation: rotateIn 1s ease-out forwards; opacity: 0; }
